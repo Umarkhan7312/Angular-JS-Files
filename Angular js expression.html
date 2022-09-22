@@ -1,19 +1,19 @@
-
 <!DOCTYPE HTML>
 <html ng-app>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <style>
-            #name {
-    border-color:black;
-}
+            #name 
+            {
+              border-color:black;
+            }
         </style>
     </head>
     <body>
         <input type="text" ng-model="name" placeholder="Enter something !" id="name">
         <b><hr id="line"></b>
         <sub>using angular js expression</sub>
-        <h2>{{name}} </h2>
+        <h2>{{name}} </h2> <hr>
         <sup>using ng-bind</sup>
         <h2 ng-bind="name"></h2>
     </body>
