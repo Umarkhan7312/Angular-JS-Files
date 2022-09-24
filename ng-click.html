@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+             <script src= "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    </head>
+   
+   
+   <body>
+    <script>
+       var app= angular.module("MyApp",[]);
+       app.controller("MyAppCntrl",function($scope){
+                
+                $scope.myarray = [
+                
+                {eno:111,ename:'Umar',salary:10000},
+                {eno:222,ename:'ramU',salary:100},
+                {eno:333,ename:'Manjit',salary:3000},
+                {eno:444,ename:'Damini',salary:4000},
+                {eno:555,ename:'Mohammad',salary:1000},
+                   {eno:666,ename:'vijaya',salary:4000}
+                
+                ];
+                $scope.orderMyarr = function(x)                                                    {
+                $scope.orderbyitems = x;
+                    
+                }
+                
+            });
+    </script>
+    <div ng-app="MyApp" ng-controller="MyAppCntrl">
+        <table border="2">
+            <tr style="background-color:violet">
+                <th ng-click="orderMyarr('eno')">
+                    EmpNo
+                </th>
+                <th ng-click="orderMyarr('ename')">
+                    EmpName
+                </th>
+                <th ng-click="orderMyarr('salary')">
+                    EmpSal
+                </th>
+            </tr>
+            <tr ng-repeat="x in myarray|orderBy:orderbyitems">
+                <td>
+                    {{x.eno}}
+                </td>
+                <td>
+                    {{x.ename}}
+                </td>
+                <td>
+                    {{x.salary}}
+                </td>
+            </tr>
+        </table>
+        </div>
+    </body>
+</html>
