@@ -1,0 +1,52 @@
+<!Doctype html>
+<html>
+	<head>
+		<title> 3 TextBox input and display it in list </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<style>
+			body{	text-align:center;}
+			form,ol{
+				font-size:20px;
+				color:black;
+				border:5px solid black;
+				background-color:yellow;
+			}
+			h2,button{	
+				background-color:black;
+				color:white;
+			}
+		</style>
+	</head>
+	<body>
+		<div ng-app="myApp" ng-controller="myCntrl">
+				<form>
+				<i>Name &nbsp &nbsp  :  <input type="text" ng-model="name" autofocus></i> &nbsp &nbsp<button ng-click="add()">ADD</button>
+	<!--		<p>Address 			 :  <input type="textarea" ng-model="address"></p>
+				<p>Phone &nbsp &nbsp :  <input type="number" ng-model="no"></p>	
+		-->		</form>
+				<h2>{{text}}</h2>
+				<ol>
+					<li ng-repeat="i in list"><i>{{i}}&nbsp &nbsp &nbsp &nbsp </i><button ng-click="del($index)">DELETE</button></li>
+				</ol>
+		</div>
+	</body>
+</html>
+<script>
+	var app = angular.module("myApp",[]);
+	app.controller("myCntrl",function($scope){
+		$scope.list = []; // list initially empty
+		$scope.add = function(){
+			$scope.text = "";
+			if(!$scope.name){return;}
+			if($scope.list.indexOf($scope.name)==-1){
+				$scope.list.push($scope.name);
+			}
+			else{
+				$scope.text = "Already in list";
+			}
+			$scope.del = function(i){
+				$scope.list.splice(i,1);
+			}
+		}		
+	});
+</script>

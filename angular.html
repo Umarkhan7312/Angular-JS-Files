@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> 3 inputs with name address and phone no using angular js</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+ </head>
+ <body ng-app="myApp" ng-controller="cont">
+ <div><hr>
+         <student name = "Gridlogics"></student><hr>
+         <student name = "Patseer"></student><hr>
+ </div>
+  <div>
+    <form>
+	
+		<label>Name    : </label>
+		<input type="text" name="name" ng-model="my.name" autofocus > <br /><br />
+		
+		<label>Address : </label>
+		<input type="text" name="address" ng-model="my.address" > <br /><br />
+		
+		<label>Phone   : </label>
+		<input type="text" name="phone" ng-model="my.phone" > <br /><br />
+		
+		<input type="hidden" ng-model="my.id" >
+		<input type="button" value="Save" ng-click="saveMy()" >
+		
+	</form>
+	<table border=2px width=70% height=70%>
+	 <thead>
+	  <tr>
+	   <th>Name</th>
+	   <th>Address</th>
+	   <th>Phone</th>
+	   <th>Edit</th>
+	  </tr>
+	 </thead>
+	 <tbody>
+	  <tr ng-repeat="i in info">
+		<td ng-bind="i.name"></td>
+		<td ng-bind="i.address"></td>
+		<td ng-bind="i.phone"></td>
+		<td>
+			<a href="#" ng-click="add(i.id)">Add</a><br /> <br />
+			<a href="#" ng-click="del(i.id)">Delete</a>
+		</td>
+	  </tr>
+	 </tbody>
+	</table>
+  </div>
+ </body>
+</html>
+
+ <script type="text/javascript">
+	var uid = 0;
+    var app = angular.module("myApp", []);
+    app.controller("cont",['$scope',cont]);
+	
+	function cont($scope){
+	    $scope.Gridlogics = {};
+        $scope.Gridlogics.name = "GridLogics";
+        $scope.Gridlogics.rollno  = 1;
+
+        $scope.Patseer = {};
+        $scope.Patseer.name = "Patseer";
+        $scope.Patseer.rollno  = 2;
+			
+	
+			$scope.my = null;
+			var info = [];
+			
+			$scope.saveMy = function(){
+				if($scope.my.id == null)
+				{
+				 uid = uid + 1 ;
+				 $scope.my.id = uid;
+				 $scope.info.push($scope.my);
+				}
+				else
+				{
+				 for(var i in $scope.info){
+					if($scope.info[i].id == $scope.my.id){
+						$scope.info[j] = $scope.my;
+					}
+				}
+			}
+		}
+			
+		$scope.my = null;
+		// add function
+		$scope.add = function(id){
+			for(var i in $scope.info){
+					if($scope.info[i].id == id){
+						$scope.my = angular.copy($scope.info[i]);
+					}
+			}
+		}
+		// del function
+		$scope.del = function(id){
+			for(var j in $scope.info){
+					if($scope.info[j].id == id){
+						$scope.info.splice(j,1);
+						$scope.my = {};
+					}
+			}
+		}
+			
+    }
+	app.directive('student', function() 
+         {
+            var directive = {}; // directive object
+            directive.restrict = 'EA'; // 'E' for element this is element directive
+            directive.template = "Student: <b>{{student.name}}</b> , Roll No: <b>{{student.rollno}}</b>";
+            
+            directive.scope = {
+               student : "=name",
+               rollno   : "=rollno",
+            }
+            
+            directive.compile = function(element, attributes) 
+		{   
+               var link = function($scope, element, attributes) 
+			{
+                    element.css("border", "5px double yellow");
+	                element.css("background-color", "black");
+                    element.css("color",'lime');
+
+                    element.html("Company : <b>"+$scope.student.name +"</b> , No: <b>"+$scope.student.rollno+"</b>");
+               	}
+               return link;
+            }
+            
+            return directive;
+         });
+ </script>

@@ -1,0 +1,70 @@
+<!Doctype html>
+<html>
+	<head>
+		<!-- 19/10/2022 umar -->
+		<title> 3 TextBox inputs and display it in table </title>
+		<!-- Online CDN's for Angular js and JQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+		<style>
+			H1   { background-color:yellow;
+				   text-align:center;    }
+			table{ border:2px solid blue; }	
+			#btn1{ border:2px double red; }
+			#btn2{ border:2px double lime;}
+			input{ text-align:center;     }
+		</style>
+	</head>
+	<body ng-app="myApp" ng-controller="myCntrl">
+		<H1> DYNAMIC TABLE USING ANGULAR JS </H1>
+		<form ng-submit="add()">
+			<table  border=2px align=center>
+				<tr>
+					 <th> <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" /> </th>
+					 <th> Name  </th> <th> Email </th> <th> Phone </th>
+				</tr>
+				<tr ng-repeat="i in info">
+					 <td> <input type="checkbox" ng-model="i.selected" autofocus  /> </td>
+					 <td> <input type="text" 	 ng-model="i.name" 	   required   /> </td>
+					 <td> <input type="email" 	 ng-model="i.email"    required   /> </td>
+					 <td> <input type="text" 	 ng-model="i.phone"    required   /> </td>
+				</tr>
+			</table>
+			 <input type="button" ng-hide="!info.length" ng-click="remove()" value="remove"  id="btn1" />
+			 <input type="submit" 										     value="add"     id="btn2" /> 
+	</body>
+</html>
+<script>
+var app = angular.module("myApp",[]);
+app.controller("myCntrl",['$scope',function($scope){
+	// info list 
+	$scope.info = [{'name':'Gridlogics','email':'gridlogics@patseer.com','phone':'411045'}];		
+	// add function here i is used of ng-repeat = "i in info"
+	$scope.add = function(i){
+		$scope.info.push({'name':"",'email':"",'phone':"",});
+	};
+	// remove function
+	$scope.remove = function(){
+		var newInfo = []; // empty list
+		$scope.selectedAll = false;
+			// for each loop for selected checkbox
+			angular.forEach($scope.info,function(selected){
+				if(!selected.selected){
+					newInfo.push(selected);
+				}
+			});
+			$scope.info = newInfo;
+		};
+		// check all function
+		$scope.checkAll = function(){
+			if(!$scope.selectedAll){
+				$scope.selectedAll = true;
+			} else {
+				$scope.selectedAll = false;
+			}
+			angular.forEach($scope.info,function(i){
+					i.selected = $scope.selectedAll;
+				});
+		};
+}]);
+</script>
